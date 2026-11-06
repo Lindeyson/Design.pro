@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Новая заявка{% endblock %}
+{% block content %}
+<div class="form-box">
+  <h1>Создание заявки</h1>
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% include '_form_fields.html' %}
+    <p class="muted">Фото или план: jpg, jpeg, png, bmp, не более 2 Мб.</p>
+    <button class="btn" type="submit">Создать</button>
+    <a class="btn btn-light" href="{% url 'profile' %}">Отмена</a>
+  </form>
+</div>
+{% endblock %}

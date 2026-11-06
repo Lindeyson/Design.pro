@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Design.pro — главная{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Дизайн интерьеров жилых помещений</h1>
+  <p>Загрузите план или фото помещения — наши дизайнеры предложат варианты оформления.</p>
+  {% if not user.is_authenticated %}
+    <a class="btn" href="{% url 'register' %}">Регистрация</a>
+    <a class="btn btn-light" href="{% url 'login' %}">Войти</a>
+  {% else %}
+    <a class="btn" href="{% url 'application_create' %}">Создать заявку</a>
+  {% endif %}
+</section>
+
+<section class="counter">
+  Заявок в работе: <strong>{{ in_work_count }}</strong>
+</section>
+
+<h2>Последние выполненные работы</h2>
+{% if done %}
+  <div class="cards">
+    {% for app in done %}
+      <article class="card">
+        {% if app.image %}<img src="{{ app.image.url }}" alt="{{ app.title }}">{% endif %}
+        <div class="card-body">
+          <h3>{{ app.title }}</h3>
+          <p class="muted">{{ app.category.name }}</p>
+          <p class="muted">{{ app.created_at|date:"d.m.Y H:i" }}</p>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="muted">Выполненных заявок пока нет.</p>
+{% endif %}
+{% endblock %}

@@ -5,6 +5,9 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
+MAX_IMAGE_SIZE = 2 * 1024 * 1024  # 2 Мб
+ALLOWED_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.bmp')
+
 def validate_image(file):
     ext = os.path.splitext(file.name)[1].lower()
     if ext not in ALLOWED_EXTENSIONS:
