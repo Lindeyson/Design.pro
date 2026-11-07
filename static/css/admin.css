@@ -1,0 +1,50 @@
+/* Фирменная тема панели администратора Django */
+:root {
+  --primary: #1c1a17;
+  --secondary: #a64f2d;
+  --accent: #a64f2d;
+  --primary-fg: #fff;
+  --header-bg: #1c1a17;
+  --header-color: #d9d2c5;
+  --header-branding-color: #fff;
+  --header-link-color: #fff;
+  --breadcrumbs-bg: #a64f2d;
+  --breadcrumbs-fg: #f3dccf;
+  --breadcrumbs-link-fg: #fff;
+  --link-fg: #a64f2d;
+  --link-hover-color: #843b1e;
+  --link-selected-fg: #843b1e;
+  --button-bg: #a64f2d;
+  --button-hover-bg: #843b1e;
+  --default-button-bg: #1c1a17;
+  --default-button-hover-bg: #a64f2d;
+  --object-tools-bg: #5f7254;
+  --object-tools-hover-bg: #405336;
+  --selected-bg: #f3dccf;
+  --selected-row: #f6efe3;
+  --hairline-color: #e4ddd0;
+  --border-color: #ddd5c7;
+  --darkened-bg: #f6f2ea;
+  --body-bg: #f3efe8;
+}
+
+body { font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+
+#header { padding: 14px 40px; }
+#site-name a { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.9rem; font-weight: 600; letter-spacing: -.02em; }
+#site-name a span { color: #e9b48f; font-style: italic; }
+#site-name small { font-family: "Manrope", sans-serif; font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: #b9b2a5; margin-left: 12px; font-weight: 600; }
+
+h1, #content h1 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 2.2rem; font-weight: 600; color: #1c1a17; }
+
+.module h2, .module caption, .inline-group h2 {
+  background: #1c1a17;
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.module, .inline-group { border-radius: 4px; overflow: hidden; }
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button { border-radius: 999px; }
+.submit-row { border-radius: 4px; }
+.object-tools a { border-radius: 999px; }

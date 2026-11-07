@@ -1,9 +1,9 @@
-from django.shortcuts import render
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 
 from .forms import ApplicationForm, LoginForm, RegisterForm
 from .models import Application
@@ -24,7 +24,7 @@ class CustomLoginView(LoginView):
         if url:
             return url
         if self.request.user.is_staff:
-            return '/superadmin/'
+            return reverse('admin:index')
         return super().get_success_url()
 
 

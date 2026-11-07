@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Удаление заявки{% endblock %}
+{% block content %}
+<div class="form-box">
+  <h1>Удаление заявки</h1>
+  <p>Вы действительно хотите удалить заявку «<strong>{{ application.title }}</strong>»?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Да, удалить</button>
+    <a class="btn btn-light" href="{% url 'profile' %}">Отмена</a>
+  </form>
+</div>
+{% endblock %}

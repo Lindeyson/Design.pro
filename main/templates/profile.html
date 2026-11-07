@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Мои заявки{% endblock %}
+{% block content %}
+<h1>Мои заявки</h1>
+
+<form method="get" class="filter">
+  <label for="status">Статус:</label>
+  <select name="status" id="status" onchange="this.form.submit()">
+    <option value="">Все</option>
+    {% for value, label in status_choices %}
+      <option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+  <noscript><button class="btn btn-small" type="submit">Применить</button></noscript>
+  <a class="btn btn-small" href="{% url 'application_create' %}">Создать заявку</a>
+</form>
+
+{% if applications %}
+<table class="table">
+  <thead>
+    <tr><th>Дата</th><th>Название</th><th>Описание</th><th>Категория</th><th>Статус</th><th></th></tr>
+  </thead>
+  <tbody>
+  {% for app in applications %}
+    <tr>
+      <td>{{ app.created_at|date:"d.m.Y H:i" }}</td>
+      <td>{{ app.title }}</td>
+      <td>{{ app.description|linebreaksbr }}</td>
+      <td>{{ app.category.name }}</td>
+      <td><span class="status status-{{ app.status }}">{{ app.get_status_display }}</span></td>
+      <td>
+        {% if app.status == 'new' %}
+          <a class="btn btn-small btn-danger" href="{% url 'application_delete' app.pk %}">Удалить</a>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p class="muted">Заявок не найдено.</p>
+{% endif %}
+{% endblock %}

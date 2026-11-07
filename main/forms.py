@@ -25,6 +25,16 @@ class RegisterForm(forms.ModelForm):
         model = User
         fields = ['full_name', 'username', 'email']
 
+    def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            placeholders = {
+                'full_name': 'Иванов Иван Иванович',
+                'username': 'ivan-design',
+                'email': 'name@example.com',
+            }
+            for name, text in placeholders.items():
+                self.fields[name].widget.attrs['placeholder'] = text
+
     def clean_password2(self):
         p1 = self.cleaned_data.get('password1')
         p2 = self.cleaned_data.get('password2')
@@ -44,7 +54,14 @@ class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
         fields = ['title', 'description', 'category', 'image']
-        widgets = {'description': forms.Textarea(attrs={'rows': 5})}
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'Например, «Гостиная в скандинавском стиле»'}),
+            'description': forms.Textarea(attrs={
+                'rows': 5,
+                'placeholder': 'Опишите пожелания: стиль, цвета, мебель, бюджет',
+            }),
+            'image': forms.ClearableFileInput(attrs={'accept': '.jpg,.jpeg,.png,.bmp'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
