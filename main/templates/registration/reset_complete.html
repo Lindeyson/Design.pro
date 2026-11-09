@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Пароль изменён — Design.pro{% endblock %}
+{% block content %}
+<div class="form-box form-box-narrow">
+  <p class="eyebrow">Готово</p>
+  <h1>Пароль изменён</h1>
+  <p class="confirm-text">Новый пароль сохранён. Теперь вы можете войти в личный кабинет.</p>
+  <div class="form-actions">
+    <a class="btn" href="{% url 'login' %}">Войти</a>
+  </div>
+</div>
+{% endblock %}

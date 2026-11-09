@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Восстановление пароля — Design.pro{% endblock %}
+{% block content %}
+<div class="form-wrap">
+  <aside class="form-aside">
+    <p class="eyebrow">Восстановление доступа</p>
+    <h2>Забыли <em>пароль?</em></h2>
+    <p>Укажите email, который вы использовали при регистрации, — мы отправим ссылку для создания нового пароля.</p>
+  </aside>
+  <div class="form-box">
+    <h1>Сброс пароля</h1>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% include '_form_fields.html' %}
+      <div class="form-actions">
+        <button class="btn" type="submit">Отправить ссылку</button>
+      </div>
+    </form>
+    <p class="form-foot"><a href="{% url 'login' %}">Вернуться ко входу</a></p>
+  </div>
+</div>
+{% endblock %}

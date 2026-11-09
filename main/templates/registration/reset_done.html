@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Письмо отправлено — Design.pro{% endblock %}
+{% block content %}
+<div class="form-box form-box-narrow">
+  <p class="eyebrow">Проверьте почту</p>
+  <h1>Письмо отправлено</h1>
+  <p class="confirm-text">Если на этот адрес зарегистрирован аккаунт, мы отправили на него инструкцию по установке нового пароля. Если письмо не пришло в течение нескольких минут, проверьте папку «Спам».</p>
+  <div class="form-actions">
+    <a class="btn" href="{% url 'login' %}">Вернуться ко входу</a>
+  </div>
+</div>
+{% endblock %}

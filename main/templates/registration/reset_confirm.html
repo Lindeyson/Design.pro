@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Новый пароль — Design.pro{% endblock %}
+{% block content %}
+{% if validlink %}
+<div class="form-wrap">
+  <aside class="form-aside">
+    <p class="eyebrow">Почти готово</p>
+    <h2>Придумайте <em>новый пароль</em></h2>
+    <p>Введите новый пароль дважды, чтобы исключить опечатку.</p>
+  </aside>
+  <div class="form-box">
+    <h1>Новый пароль</h1>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% include '_form_fields.html' %}
+      <div class="form-actions">
+        <button class="btn" type="submit">Сохранить пароль</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% else %}
+<div class="form-box form-box-narrow">
+  <p class="eyebrow">Ссылка недействительна</p>
+  <h1>Сброс не удался</h1>
+  <p class="confirm-text">Ссылка для сброса пароля недействительна — возможно, она уже была использована или устарела. Запросите сброс пароля заново.</p>
+  <div class="form-actions">
+    <a class="btn" href="{% url 'password_reset' %}">Запросить заново</a>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
