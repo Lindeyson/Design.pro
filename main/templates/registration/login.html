@@ -4,11 +4,16 @@
 <div class="form-box">
   <h1>Вход</h1>
   <form method="post" novalidate>
-    {% csrf_token %}
-    {% include '_form_fields.html' %}
-    <input type="hidden" name="next" value="{{ next }}">
-    <button class="btn" type="submit">Войти</button>
-  </form>
-  <p class="muted">Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>
-</div>
+      {% csrf_token %}
+      {% include '_form_fields.html' %}
+      <input type="hidden" name="next" value="{{ next }}">
+      <div class="form-actions">
+        <button class="btn" type="submit">Войти</button>
+      </div>
+    </form>
+    <p class="form-foot">
+      <a href="{% url 'password_reset' %}">Забыли пароль?</a><br>
+      Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a>
+    </p>
+  </div>
 {% endblock %}
