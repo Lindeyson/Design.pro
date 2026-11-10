@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 
-from .models import Application, User
+from .models import Application, Category, User, validate_image
 
 
 class LoginForm(AuthenticationForm):
@@ -49,7 +49,6 @@ class RegisterForm(forms.ModelForm):
             user.save()
         return user
 
-
 class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
@@ -66,3 +65,50 @@ class ApplicationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['category'].empty_label = 'Выберите категорию'
+
+class ApplicationProcessForm(forms.Form):
+    status = forms.ChoiceField(
+        label='Новый статус',
+        choices=[
+            ('', 'Выберите статус'),
+            (Application.IN_WORK, 'Принято в работу'),
+            (Application.DONE, 'Выполнено'),
+        ],
+        error_messages={
+            'required': 'Выберите новый статус заявки.',
+            'invalid_choice': 'Выберите один из предложенных статусов.',
+        },
+    )
+    comment = forms.CharField(
+        label='Комментарий (обязателен для статуса «Принято в работу»)',
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 4}),
+    )
+    design_image = forms.ImageField(
+        label='Изображение «дизайн» (обязательно для статуса «Выполнено»)',
+        required=False,
+        validators=[validate_image],
+        widget=forms.ClearableFileInput(attrs={'accept': '.jpg,.jpeg,.png,.bmp'}),
+    )
+
+    def clean(self):
+        data = super().clean()
+        status = data.get('status')
+        if status == Application.IN_WORK and not (data.get('comment') or '').strip():
+            self.add_error('comment', 'Для статуса «Принято в работу» необходимо указать комментарий.')
+        if status == Application.DONE and not data.get('design_image'):
+            self.add_error('design_image', 'Для статуса «Выполнено» необходимо прикрепить изображение дизайна.')
+        return data
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name']
+        widgets = {'name': forms.TextInput(attrs={'placeholder': 'Например, «3D-дизайн»'})}
+        error_messages = {
+            'name': {
+                'required': 'Введите название категории.',
+                'unique': 'Такая категория уже существует.',
+                'max_length': 'Название не должно быть длиннее 100 символов.',
+            },
+        }

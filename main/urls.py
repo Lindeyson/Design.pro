@@ -12,6 +12,11 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('applications/create/', views.application_create, name='application_create'),
     path('applications/<int:pk>/delete/', views.application_delete, name='application_delete'),
+    path('superadmin/', views.panel_dashboard, name='panel_dashboard'),
+    path('superadmin/applications/', views.panel_applications, name='panel_applications'),
+    path('superadmin/applications/<int:pk>/', views.panel_application, name='panel_application'),
+    path('superadmin/categories/', views.panel_categories, name='panel_categories'),
+    path('superadmin/categories/<int:pk>/delete/', views.panel_category_delete, name='panel_category_delete'),
     path('password_reset/', auth_views.PasswordResetView.as_view(
         template_name='registration/reset_form.html',
         email_template_name='registration/reset_email.txt',
