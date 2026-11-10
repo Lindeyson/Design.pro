@@ -27,7 +27,7 @@ class CustomLoginView(LoginView):
         if url:
             return url
         if self.request.user.is_staff:
-            return reverse('admin:index')
+            return reverse('panel_dashboard')
         return super().get_success_url()
 
 
@@ -98,8 +98,7 @@ def staff_required(view):
 @staff_required
 def panel_dashboard(request):
     counts = dict(Application.objects.order_by().values_list('status').annotate(Count('id')))
-    return render(request, 'panel.html', {
-        'page': 'dashboard',
+    return render(request, 'panel_dashboard.html', {
         'total': sum(counts.values()),
         'new_count': counts.get(Application.NEW, 0),
         'in_work_count': counts.get(Application.IN_WORK, 0),
@@ -123,8 +122,7 @@ def panel_applications(request):
         applications = applications.filter(category_id=int(category))
     else:
         category = ''
-    return render(request, 'panel.html', {
-        'page': 'applications',
+    return render(request, 'panel_applications.html', {
         'applications': applications,
         'status': status,
         'category': category,
@@ -154,8 +152,7 @@ def panel_application(request, pk):
             messages.success(request, 'Статус заявки изменён.')
             return redirect('panel_application', pk=pk)
 
-    return render(request, 'panel.html', {
-        'page': 'application',
+    return render(request, 'panel_application.html', {
         'application': application,
         'can_process': can_process,
         'form': form,
@@ -169,8 +166,7 @@ def panel_categories(request):
         category = form.save()
         messages.success(request, f'Категория «{category.name}» добавлена.')
         return redirect('panel_categories')
-    return render(request, 'panel.html', {
-        'page': 'categories',
+    return render(request, 'panel_categories.html', {
         'categories': Category.objects.annotate(apps_count=Count('applications')),
         'form': form,
     })
@@ -181,7 +177,7 @@ def panel_category_delete(request, pk):
     category = get_object_or_404(Category.objects.annotate(apps_count=Count('applications')), pk=pk)
     if request.method == 'POST':
         name = category.name
-        category.delete()
+        category.delete() 
         messages.success(request, f'Категория «{name}» и все её заявки удалены.')
         return redirect('panel_categories')
-    return render(request, 'panel.html', {'page': 'category_delete', 'category': category})
+    return render(request, 'panel_category_delete.html', {'category': category})

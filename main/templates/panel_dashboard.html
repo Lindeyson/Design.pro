@@ -3,15 +3,6 @@
 {% block panel_content %}
 <h1>Обзор</h1>
 
-<div class="stat-grid">
-  <a class="stat stat-accent" href="{% url 'panel_applications' %}?status=new"><span class="stat-num">{{ new_count }}</span><span class="stat-label">Новых заявок</span></a>
-  <a class="stat" href="{% url 'panel_applications' %}?status=in_work"><span class="stat-num">{{ in_work_count }}</span><span class="stat-label">В работе</span></a>
-  <a class="stat" href="{% url 'panel_applications' %}?status=done"><span class="stat-num">{{ done_count }}</span><span class="stat-label">Выполнено</span></a>
-  <a class="stat" href="{% url 'panel_applications' %}"><span class="stat-num">{{ total }}</span><span class="stat-label">Всего заявок</span></a>
-  <a class="stat" href="{% url 'panel_categories' %}"><span class="stat-num">{{ categories_count }}</span><span class="stat-label">Категорий</span></a>
-  <div class="stat"><span class="stat-num">{{ users_count }}</span><span class="stat-label">Пользователей</span></div>
-</div>
-
 <div class="panel-section-head">
   <h2>Последние заявки</h2>
   <a class="btn btn-small btn-ghost" href="{% url 'panel_applications' %}">Все заявки</a>

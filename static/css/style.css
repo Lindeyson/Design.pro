@@ -454,3 +454,29 @@ footer { background: var(--ink); color: #b9b2a5; padding: 44px 0; font-size: .9r
 .logo-footer span { color: #e9b48f; }
 .footer p { margin-top: 8px; }
 .footer-note { font-size: .8rem; }
+
+.panel-head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding: 8px 0 18px; margin-bottom: 28px; border-bottom: 1px solid var(--line); }
+.panel-head .eyebrow { margin: 0; }
+.panel-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.panel-nav a { font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; color: var(--ink-soft); padding: 9px 20px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); transition: background .2s, color .2s, border-color .2s; }
+.panel-nav a:hover { border-color: var(--ink); color: var(--ink); }
+.panel-nav a.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+.panel-section-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin: 44px 0 18px; }
+.panel-section-head h2 { margin-bottom: 0; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 18px; margin-top: 24px; }
+.stat { display: flex; flex-direction: column; gap: 6px; padding: 22px 24px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); text-decoration: none; color: var(--ink); transition: transform .2s, border-color .2s; }
+a.stat:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--ink); }
+.stat-num { font-family: var(--font-display); font-size: 3rem; font-weight: 600; line-height: 1; }
+.stat-label { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.stat-accent { background: var(--ink); border-color: var(--ink); }
+.stat-accent .stat-num { color: #e9b48f; }
+.stat-accent .stat-label { color: #d9d2c5; }
+a.stat-accent:hover { color: #fff; }
+.panel-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 28px; align-items: start; }
+.panel-card { background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); padding: 28px; }
+.panel-card h2 { font-size: 1.7rem; }
+.detail-list dt { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 18px; }
+.detail-list dt:first-child { margin-top: 0; }
+.detail-list dd { margin-top: 4px; color: var(--ink-soft); }
+.app-image { max-width: 100%; max-height: 320px; border: 1px solid var(--line); border-radius: var(--radius); object-fit: contain; background: var(--sand); }
+.back { margin-bottom: 12px; font-size: .9rem; }
