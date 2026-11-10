@@ -1,0 +1,38 @@
+{% extends 'panel_base.html' %}
+{% block title %}Обзор — Design.pro{% endblock %}
+{% block panel_content %}
+<h1>Обзор</h1>
+
+<div class="stat-grid">
+  <a class="stat stat-accent" href="{% url 'panel_applications' %}?status=new"><span class="stat-num">{{ new_count }}</span><span class="stat-label">Новых заявок</span></a>
+  <a class="stat" href="{% url 'panel_applications' %}?status=in_work"><span class="stat-num">{{ in_work_count }}</span><span class="stat-label">В работе</span></a>
+  <a class="stat" href="{% url 'panel_applications' %}?status=done"><span class="stat-num">{{ done_count }}</span><span class="stat-label">Выполнено</span></a>
+  <a class="stat" href="{% url 'panel_applications' %}"><span class="stat-num">{{ total }}</span><span class="stat-label">Всего заявок</span></a>
+  <a class="stat" href="{% url 'panel_categories' %}"><span class="stat-num">{{ categories_count }}</span><span class="stat-label">Категорий</span></a>
+  <div class="stat"><span class="stat-num">{{ users_count }}</span><span class="stat-label">Пользователей</span></div>
+</div>
+
+<div class="panel-section-head">
+  <h2>Последние заявки</h2>
+  <a class="btn btn-small btn-ghost" href="{% url 'panel_applications' %}">Все заявки</a>
+</div>
+{% if latest %}
+<table class="table">
+  <thead><tr><th>Дата</th><th>Название</th><th>Пользователь</th><th>Категория</th><th>Статус</th><th></th></tr></thead>
+  <tbody>
+  {% for app in latest %}
+    <tr>
+      <td class="nowrap">{{ app.created_at|date:"d.m.Y H:i" }}</td>
+      <td>{{ app.title }}</td>
+      <td>{{ app.user.full_name }}<br><span class="muted">{{ app.user.username }}</span></td>
+      <td>{{ app.category.name }}</td>
+      <td><span class="status status-{{ app.status }}">{{ app.get_status_display }}</span></td>
+      <td><a class="btn btn-small" href="{% url 'panel_application' app.pk %}">Открыть</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p class="muted">Заявок пока нет.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'panel_base.html' %}
+{% block title %}{{ application.title }} — Design.pro{% endblock %}
+{% block panel_content %}
+<p class="back"><a href="{% url 'panel_applications' %}">← Ко всем заявкам</a></p>
+<h1>{{ application.title }}</h1>
+
+<div class="panel-cols">
+  <section class="panel-card">
+    <h2>Заявка</h2>
+    <dl class="detail-list">
+      <dt>Статус</dt>
+      <dd><span class="status status-{{ application.status }}">{{ application.get_status_display }}</span></dd>
+      <dt>Дата создания</dt>
+      <dd>{{ application.created_at|date:"d.m.Y H:i" }}</dd>
+      <dt>Пользователь</dt>
+      <dd>{{ application.user.full_name }} ({{ application.user.username }})<br><span class="muted">{{ application.user.email }}</span></dd>
+      <dt>Категория</dt>
+      <dd>{{ application.category.name }}</dd>
+      <dt>Описание</dt>
+      <dd>{{ application.description|linebreaksbr }}</dd>
+      <dt>Фото помещения или план</dt>
+      <dd><a href="{{ application.image.url }}" target="_blank" rel="noopener"><img class="app-image" src="{{ application.image.url }}" alt="{{ application.title }}"></a></dd>
+    </dl>
+  </section>
+
+  <section class="panel-card">
+    {% if can_process %}
+      <h2>Обработка заявки</h2>
+      <p class="hint">Статус «Новая» можно изменить один раз: после смены статуса изменить его будет нельзя.</p>
+      <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {% include '_form_fields.html' %}
+        <div class="form-actions">
+          <button class="btn" type="submit">Сохранить</button>
+          <a class="btn btn-ghost" href="{% url 'panel_applications' %}">Отмена</a>
+        </div>
+      </form>
+    {% else %}
+      <h2>Результат обработки</h2>
+      <dl class="detail-list">
+        <dt>Статус</dt>
+        <dd><span class="status status-{{ application.status }}">{{ application.get_status_display }}</span></dd>
+        {% if application.comment %}<dt>Комментарий</dt><dd>{{ application.comment|linebreaksbr }}</dd>{% endif %}
+        {% if application.design_image %}
+          <dt>Изображение «дизайн»</dt>
+          <dd><a href="{{ application.design_image.url }}" target="_blank" rel="noopener"><img class="app-image" src="{{ application.design_image.url }}" alt="Дизайн: {{ application.title }}"></a></dd>
+        {% endif %}
+      </dl>
+      <p class="hint">Заявка уже обработана, статус изменить нельзя.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

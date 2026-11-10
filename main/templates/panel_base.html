@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Панель администратора — Design.pro{% endblock %}
+{% block content %}
+{% with page=request.resolver_match.url_name %}
+<div class="panel-head">
+  <p class="eyebrow">Панель администратора</p>
+  <nav class="panel-nav">
+    <a href="{% url 'panel_dashboard' %}" class="{% if page == 'panel_dashboard' %}active{% endif %}">Обзор</a>
+    <a href="{% url 'panel_applications' %}" class="{% if page == 'panel_applications' or page == 'panel_application' %}active{% endif %}">Заявки</a>
+    <a href="{% url 'panel_categories' %}" class="{% if page == 'panel_categories' or page == 'panel_category_delete' %}active{% endif %}">Категории</a>
+  </nav>
+</div>
+{% endwith %}
+{% block panel_content %}{% endblock %}
+{% endblock %}

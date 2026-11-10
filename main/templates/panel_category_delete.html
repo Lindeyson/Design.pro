@@ -1,0 +1,16 @@
+{% extends 'panel_base.html' %}
+{% block title %}Удаление категории — Design.pro{% endblock %}
+{% block panel_content %}
+<div class="form-box">
+  <h1>Удаление категории</h1>
+  <p>Вы действительно хотите удалить категорию «<strong>{{ category.name }}</strong>»?</p>
+  {% if category.apps_count %}
+    <div class="alert alert-error">Вместе с категорией будут безвозвратно удалены все её заявки: {{ category.apps_count }}.</div>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Да, удалить</button>
+    <a class="btn btn-ghost" href="{% url 'panel_categories' %}">Отмена</a>
+  </form>
+</div>
+{% endblock %}

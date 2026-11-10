@@ -1,0 +1,35 @@
+{% extends 'panel_base.html' %}
+{% block title %}Категории — Design.pro{% endblock %}
+{% block panel_content %}
+<h1>Категории заявок</h1>
+
+<div class="panel-cols">
+  <section class="panel-card">
+    <h2>Добавить категорию</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% include '_form_fields.html' %}
+      <div class="form-actions"><button class="btn" type="submit">Добавить</button></div>
+    </form>
+  </section>
+
+  <section>
+    {% if categories %}
+    <table class="table">
+      <thead><tr><th>Название</th><th>Заявок</th><th></th></tr></thead>
+      <tbody>
+      {% for c in categories %}
+        <tr>
+          <td>{{ c.name }}</td>
+          <td>{{ c.apps_count }}</td>
+          <td><a class="btn btn-small btn-danger" href="{% url 'panel_category_delete' c.pk %}">Удалить</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p class="muted">Категорий пока нет. Добавьте первую, иначе пользователи не смогут создавать заявки.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

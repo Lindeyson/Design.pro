@@ -1,0 +1,44 @@
+{% extends 'panel_base.html' %}
+{% block title %}Заявки — Design.pro{% endblock %}
+{% block panel_content %}
+<h1>Заявки</h1>
+
+<form method="get" class="filter">
+  <label for="status">Статус:</label>
+  <select name="status" id="status" onchange="this.form.submit()">
+    <option value="">Все</option>
+    {% for value, label in status_choices %}
+      <option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+  <label for="category">Категория:</label>
+  <select name="category" id="category" onchange="this.form.submit()">
+    <option value="">Все</option>
+    {% for c in categories %}
+      <option value="{{ c.pk }}" {% if category == c.pk|stringformat:"s" %}selected{% endif %}>{{ c.name }}</option>
+    {% endfor %}
+  </select>
+  <noscript><button class="btn btn-small" type="submit">Применить</button></noscript>
+  {% if status or category %}<a class="btn btn-small btn-ghost" href="{% url 'panel_applications' %}">Сбросить</a>{% endif %}
+</form>
+
+{% if applications %}
+<table class="table">
+  <thead><tr><th>Дата</th><th>Название</th><th>Пользователь</th><th>Категория</th><th>Статус</th><th></th></tr></thead>
+  <tbody>
+  {% for app in applications %}
+    <tr>
+      <td class="nowrap">{{ app.created_at|date:"d.m.Y H:i" }}</td>
+      <td>{{ app.title }}</td>
+      <td>{{ app.user.full_name }}<br><span class="muted">{{ app.user.username }}</span></td>
+      <td>{{ app.category.name }}</td>
+      <td><span class="status status-{{ app.status }}">{{ app.get_status_display }}</span></td>
+      <td><a class="btn btn-small" href="{% url 'panel_application' app.pk %}">{% if app.status == 'new' %}Обработать{% else %}Открыть{% endif %}</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p class="muted">Заявок не найдено.</p>
+{% endif %}
+{% endblock %}
