@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from .forms import ApplicationForm, ApplicationProcessForm, CategoryForm, LoginForm, RegisterForm
-from .models import Application, Category, User
+from .models import Application, Category
 
 def index(request):
     done = Application.objects.filter(status=Application.DONE).select_related('category')[:4]
@@ -97,16 +97,9 @@ def staff_required(view):
 
 @staff_required
 def panel_dashboard(request):
-    counts = dict(Application.objects.order_by().values_list('status').annotate(Count('id')))
     return render(request, 'panel_dashboard.html', {
-        'total': sum(counts.values()),
-        'new_count': counts.get(Application.NEW, 0),
-        'in_work_count': counts.get(Application.IN_WORK, 0),
-        'done_count': counts.get(Application.DONE, 0),
-        'categories_count': Category.objects.count(),
-        'users_count': User.objects.filter(is_staff=False).count(),
-        'latest': Application.objects.select_related('user', 'category')[:5],
-    })
+      'latest': Application.objects.select_related('user', 'category')[:5],
+  })
 
 
 @staff_required
