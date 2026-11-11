@@ -16,7 +16,7 @@
     <div class="cards">
       {% for app in done %}
         <article class="card">
-          {% if app.image %}<img src="{{ app.image.url }}" alt="{{ app.title }}">{% endif %}
+          {% if app.image %}<img src="{{ app.design_image.url }}" alt="{{ app.title }}">{% endif %}
           <div class="card-body">
             <h3>{{ app.title }}</h3>
             <p class="muted">{{ app.category.name }}</p>

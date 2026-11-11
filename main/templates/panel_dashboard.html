@@ -1,10 +1,8 @@
 {% extends 'panel_base.html' %}
 {% block title %}Обзор — Design.pro{% endblock %}
 {% block panel_content %}
-<h1>Обзор</h1>
-
 <div class="panel-section-head">
-  <h2>Последние заявки</h2>
+  <h1>Последние заявки</h1>
   <a class="btn btn-small btn-ghost" href="{% url 'panel_applications' %}">Все заявки</a>
 </div>
 {% if latest %}

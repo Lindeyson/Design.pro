@@ -1,0 +1,13 @@
+{% autoescape off %}Здравствуйте, {{ user.full_name|default:user.get_username }}!
+
+Вы (или кто-то другой) запросили восстановление пароля на сайте Design.pro для адреса {{ email }}.
+
+Чтобы задать новый пароль, перейдите по ссылке:
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+
+Ваш логин: {{ user.get_username }}
+
+Если вы не запрашивали восстановление, просто проигнорируйте это письмо — пароль останется прежним.
+
+Design.pro
+{% endautoescape %}
